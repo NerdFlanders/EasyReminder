@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="EasyReminder.MainPageView">
+
+    <StackLayout>
+        <StackLayout BackgroundColor="#50C878">
+            <Label Text="{Binding PageTitle}" 
+                   FontAttributes="Bold" 
+                   FontSize="Large" 
+                   Margin="15,10,0,10" 
+                   TextColor="#284614"/>
+        </StackLayout>
+        <StackLayout Margin="15,10,10,10">
+            <Entry x:Name="ReminderInput"
+                   Text="{Binding ReminderText}"
+                   Placeholder="Todo"/>
+            <FlexLayout>
+                <DatePicker x:Name="DatePickerInput" FontSize="Large" />
+                <TimePicker x:Name="TimePickerInput" FontSize="Large" />
+                <Button x:Name="ReminderSave"
+                        Text="Save"
+                        Command="{Binding SaveReminder}"
+                        BackgroundColor="#50C878" 
+                        BorderWidth="-1"
+                        CornerRadius="0" />
+            </FlexLayout>
+        </StackLayout>
+        <StackLayout Margin="15,10,10,10">
+            <Button x:Name="ReminderList"
+                        Text="List"
+                        Command="{Binding NavigateToReminderList}"
+                        BackgroundColor="#50C878" 
+                        BorderWidth="-1"
+                        CornerRadius="0" />
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
