@@ -17,20 +17,24 @@ namespace EasyReminder.Infrastructure
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "reminders.db3");
 
             _dbcon = new SQLiteConnection(dbPath);
+            _dbcon.CreateTable<Reminder>();
         }
 
         public bool SaveReminderToDevice(Reminder reminder)
-        {
-            _dbcon.CreateTable<Reminder>();
+        {            
             _dbcon.Insert(reminder);
-
             return true;
         }
 
         public ObservableCollection<Reminder> GetReminder()
         {
-            var table = _dbcon.Table<Reminder>();
+            var table = _dbcon.Table<Reminder>().ToList();
             ObservableCollection<Reminder> reminders = new ObservableCollection<Reminder>();
+
+            if (table.Count == 0)
+            {
+                return reminders;
+            }
 
             foreach (var item in table)
             {
