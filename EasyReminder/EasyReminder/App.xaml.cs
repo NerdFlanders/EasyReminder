@@ -12,9 +12,6 @@ namespace EasyReminder
         {
             InitializeComponent();
             LoadTypes();
-            //Container = Bootstrap.Configure();
-            //var page = Container.Resolve<MainPageView>();
-            //MainPage = new NavigationPage(page);
         }
 
         private void LoadTypes()

@@ -38,7 +38,6 @@ namespace EasyReminder.Infrastructure
 
             foreach (var item in table)
             {
-                Debug.WriteLine("jdx" + item.Text + " " + item.AlertTime);
                 reminders.Add(item);
             }
 

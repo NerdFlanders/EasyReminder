@@ -1,8 +1,8 @@
-﻿using Autofac;
-using EasyReminder.Infrastructure;
+﻿using EasyReminder.Infrastructure;
 using EasyReminder.Model;
+using EasyReminder.Services;
 using EasyReminder.Services.Navigation;
-using EasyReminder.View;
+using EasyReminder.ViewModel.Styles;
 using System;
 using System.ComponentModel;
 using System.Windows.Input;
@@ -21,19 +21,14 @@ namespace EasyReminder.ViewModel
         #endregion
 
         #region Public Properties
+        public string BACKGROUND_COLOR => GlobalStyles.BACKGROUND_COLOR;
+        public string PRIMARY_COLOR => GlobalStyles.PRIMARY_COLOR;
+        public string TEXT_COLOR => GlobalStyles.TEXT_COLOR;
+
         public event PropertyChangedEventHandler PropertyChanged;
         public string PageTitle => "Create Reminder";
         public ICommand SaveReminder { get; set; }
         public ICommand NavigateToReminderList { get; set; }
-        #endregion
-
-        public MainPageViewModel(ISaveInteractor saveInteractor, INavigator navigator)
-        {
-            _navigator = navigator;
-            _saveInteractor = saveInteractor;
-            SaveReminder = new Command(OnSaveReminder);
-            NavigateToReminderList = new Command(OnNavigateToReminderList);
-        }
 
         public string ReminderText
         {
@@ -94,6 +89,18 @@ namespace EasyReminder.ViewModel
         public void OnNavigateToReminderList(object parameter)
         {
             _navigator.PushAsync<ReminderListViewModel>();
+        }
+
+        #endregion
+
+        public MainPageViewModel(ISaveInteractor saveInteractor, INavigator navigator, ITimeService timeService)
+        {
+            _navigator = navigator;
+            _saveInteractor = saveInteractor;
+            SaveReminder = new Command(OnSaveReminder);
+            NavigateToReminderList = new Command(OnNavigateToReminderList);
+            Date = timeService.GetDate;
+            Time = timeService.GetTime;
         }
 
         protected virtual void OnPropertyChanged(string propertyName)

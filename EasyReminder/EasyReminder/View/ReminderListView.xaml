@@ -7,10 +7,37 @@
              x:Class="EasyReminder.View.ReminderListView"
              Title="{Binding Title}">
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding ReminderList}">
+        <ListView ItemsSource="{Binding ReminderList}"
+                  Margin="10, 10, 10, 10">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <TextCell Text="{Binding Text}" />
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Label Text="{Binding Text}"
+                                   Grid.Column="0" 
+                                   Grid.Row="0"
+                                   Grid.RowSpan="2"
+                                   VerticalOptions="Center"
+                                   FontSize="Large"/>
+                            <Label Text="{Binding AlertTime, StringFormat='{0:MMMM dd, yyyy}'}"
+                                   Grid.Column="1" 
+                                   Grid.Row="0"
+                                   Margin="0"
+                                   HorizontalOptions="End"/>
+                            <Label Text="{Binding AlertTime, StringFormat='{}{0:hh\\:mm}'}"
+                                   Grid.Column="1" 
+                                   Grid.Row="1"
+                                   HorizontalOptions="End" />
+                        </Grid>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>

@@ -9,25 +9,6 @@ namespace EasyReminder.Startup
 {
     class Bootstrap
     {
-        //public static IContainer Configure()
-        //{
-        //    var builder = new ContainerBuilder();
-
-        //    builder.RegisterType<SaveInteractor>().As<ISaveInteractor>();
-        //    builder.RegisterType<SaveToCloud>().As<ISaveToCloud>();
-        //    builder.RegisterType<SaveToDevice>().As<ISaveToDevice>();
-
-        //    builder.RegisterType<MainPageView>().SingleInstance();
-        //    builder.RegisterType<ReminderListView>().SingleInstance();
-
-        //    builder.RegisterType<MainPageViewModel>().SingleInstance();
-        //    builder.RegisterType<ReminderListViewModel>().SingleInstance();
-
-
-
-        //    return builder.Build();
-        //}
-
         private readonly App _app;
 
         public Bootstrap(App app)
