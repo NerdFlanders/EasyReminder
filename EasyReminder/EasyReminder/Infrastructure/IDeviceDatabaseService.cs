@@ -4,9 +4,9 @@ using System.Threading.Tasks;
 
 namespace EasyReminder.Infrastructure
 {
-    public interface ISaveInteractor
+    interface ISaveToDevice
     {
-        void SaveReminder(Reminder reminder);
+        Task<bool> SaveReminderToDevice(Reminder reminder);
         Task<ObservableCollection<Reminder>> GetReminder();
     }
 }

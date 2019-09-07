@@ -1,34 +1,34 @@
 ﻿using EasyReminder.Model;
 using SQLite;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace EasyReminder.Infrastructure
 {
     class SaveToDevice : ISaveToDevice
     {
-        private readonly SQLiteConnection _dbcon;
+        private readonly SQLiteAsyncConnection _dbcon;
 
         public SaveToDevice()
         {
             string dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "reminders.db3");
 
-            _dbcon = new SQLiteConnection(dbPath);
-            _dbcon.CreateTable<Reminder>();
+            _dbcon = new SQLiteAsyncConnection(dbPath);
+            _dbcon.CreateTableAsync<Reminder>().Wait();
         }
 
-        public bool SaveReminderToDevice(Reminder reminder)
+        public async Task<bool> SaveReminderToDevice(Reminder reminder)
         {            
-            _dbcon.Insert(reminder);
-            return true;
+            int returnval = await _dbcon.InsertAsync(reminder);
+            return returnval == 1;
         }
 
-        public ObservableCollection<Reminder> GetReminder()
+        public async Task<ObservableCollection<Reminder>> GetReminder()
         {
-            var table = _dbcon.Table<Reminder>().ToList();
+            var table = await _dbcon.Table<Reminder>().ToListAsync();
             ObservableCollection<Reminder> reminders = new ObservableCollection<Reminder>();
 
             if (table.Count == 0)
@@ -44,9 +44,9 @@ namespace EasyReminder.Infrastructure
             return reminders;
         }
 
-        public bool DeleteReminder(int id)
+        public async Task<bool> DeleteReminder(int id)
         {
-            int rowCount = _dbcon.Delete<Reminder>(id);
+            int rowCount = await _dbcon.DeleteAsync<Reminder>(id);
             return rowCount == 1 ? true : false;
         }
 
@@ -61,7 +61,7 @@ namespace EasyReminder.Infrastructure
 
             foreach(var item in ReminderList)
             {
-                _dbcon.Insert(item);
+                _dbcon.InsertAsync(item);
             }
         }
     }

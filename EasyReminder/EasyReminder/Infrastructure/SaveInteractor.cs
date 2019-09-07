@@ -1,27 +1,28 @@
 ﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 using EasyReminder.Model;
 
 namespace EasyReminder.Infrastructure
 {
     class SaveInteractor : ISaveInteractor
     {
-        private readonly ISaveToDevice _saveToDevice;
+        private readonly IDeviceDatabaseService _deviceDatabaseService;
         private readonly ISaveToCloud _saveToCloud;
 
-        public SaveInteractor(ISaveToDevice saveToDevice, ISaveToCloud saveToCloud)
+        public SaveInteractor(IDeviceDatabaseService saveToDevice, ISaveToCloud saveToCloud)
         {
-            _saveToDevice = saveToDevice;
+            _deviceDatabaseService = saveToDevice;
             _saveToCloud = saveToCloud;
         }
 
-        public ObservableCollection<Reminder> GetReminder()
+        public async Task<ObservableCollection<Reminder>> GetReminder()
         {
-            return _saveToDevice.GetReminder();
+            return await _deviceDatabaseService.GetReminder();
         }
 
         public void SaveReminder(Reminder reminder)
         {
-            _saveToDevice.SaveReminderToDevice(reminder);
+            _deviceDatabaseService.SaveReminderToDevice(reminder);
             _saveToCloud.SaveReminderToCloud();
         }
     }

@@ -8,6 +8,8 @@
              Title="{Binding Title}">
     <ContentPage.Content>
         <ListView ItemsSource="{Binding ReminderList}"
+                  IsGroupingEnabled="True"
+                  GroupDisplayBinding="{Binding Key}"
                   Margin="10, 10, 10, 10">
             <ListView.ItemTemplate>
                 <DataTemplate>

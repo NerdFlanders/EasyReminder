@@ -12,7 +12,7 @@ namespace EasyReminder.Startup.Modules
         {
             builder.RegisterType<SaveInteractor>().As<ISaveInteractor>();
             builder.RegisterType<SaveToCloud>().As<ISaveToCloud>();
-            builder.RegisterType<SaveToDevice>().As<ISaveToDevice>();
+            builder.RegisterType<DeviceDatabaseService>().As<IDeviceDatabaseService>();
             builder.RegisterType<ViewFactory>().As<IViewFactory>().SingleInstance();
             builder.RegisterType<Navigator>().As<INavigator>().SingleInstance();
             builder.RegisterType<TimeService>().As<ITimeService>().SingleInstance();
